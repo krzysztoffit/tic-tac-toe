@@ -18,32 +18,36 @@ public class TicTacToeTheGame {
 
         while (!gameOver) {
             board.boardDraw();
-            System.out.print("Choose row: ");
-            row = scanner.nextInt() - 1;
-            System.out.print("Choose column: ");
-            col = scanner.nextInt() - 1;
+                System.out.println("Player " + activePlayer.sign() + " it's your move.");
+                System.out.print("Choose row: ");
+                row = scanner.nextInt() - 1;
+                System.out.print("Choose column: ");
+                col = scanner.nextInt() - 1;
             if (checkFieldIsEmpty(row, col, board)) {
                 placeTheSign(activePlayer, row, col, board);
                 gameOver = checkTheWin(activePlayer, row, col, board);
                 counter++;
-                if (counter == 9 && !gameOver) {
-                    System.out.println("There is a draw!");
-                    board.boardDraw();
-                    gameOver = true;
-                }
+                gameOver = checkTheDraw(counter, gameOver);
                 if (xPlayer.equals(activePlayer)) {
                     activePlayer = oPlayer;
                 } else if (oPlayer.equals(activePlayer)) {
                     activePlayer = xPlayer;
                 }
-            } else {
-                System.out.println("This field is not empty! Try again.");
             }
         }
     }
 
+    public boolean checkTheDraw(int counter, boolean gameOver) {
+        if (counter == 9 && !gameOver) {
+            System.out.println("There is a draw!");
+            board.boardDraw();
+            gameOver = true;
+        }
+        return gameOver;
+    }
+
     public boolean checkTheWin(Player activePlayer, int row, int col, Board board) {
-        char sign = activePlayer.getSign();
+        char sign = activePlayer.sign();
         int signCounter;
 
         signCounter = 0;
@@ -100,15 +104,19 @@ public class TicTacToeTheGame {
     }
 
     private boolean checkFieldIsEmpty(int row, int col, Board board) {
-        return board.board[row][col] == ' ';
+        boolean emptyFill =  board.board[row][col] == ' ';
+        if (!emptyFill) {
+            System.out.println("This field is not empty! Try again.");
+        }
+        return emptyFill;
     }
 
     public void placeTheSign(Player activePlayer, int row, int col, Board board) {
         char sign = ' ';
         if (xPlayer.equals(activePlayer)) {
-            sign = xPlayer.getSign();
+            sign = xPlayer.sign();
         } else if (oPlayer.equals(activePlayer)) {
-            sign = oPlayer.getSign();
+            sign = oPlayer.sign();
         }
         board.board[row][col] = sign;
     }

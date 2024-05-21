@@ -1,16 +1,6 @@
 package com.tictactoe;
 
-public class Player {
-
-    private char sign;
-
-    public Player(char sign) {
-        this.sign = sign;
-    }
-
-    public char getSign() {
-        return sign;
-    }
+public record Player(char sign) {
 
     @Override
     public boolean equals(Object o) {
