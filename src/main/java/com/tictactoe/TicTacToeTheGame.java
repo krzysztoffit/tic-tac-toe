@@ -11,113 +11,97 @@ public class TicTacToeTheGame {
 
     public void playTheGame() {
         Player activePlayer = xPlayer;
-        boolean gameOver = false;
         int counter = 0;
         int col;
         int row;
 
-        while (!gameOver) {
-            board.boardDraw();
-                System.out.println("Player " + activePlayer.sign() + " it's your move.");
-                System.out.print("Choose row: ");
-                row = scanner.nextInt() - 1;
-                System.out.print("Choose column: ");
-                col = scanner.nextInt() - 1;
-            if (checkFieldIsEmpty(row, col, board)) {
-                placeTheSign(activePlayer, row, col, board);
-                gameOver = checkTheWin(activePlayer, row, col, board);
+        while (true) {
+            board.printBoard();
+            System.out.println("Player " + activePlayer.sign() + " it's your move.");
+            System.out.print("Choose row: ");
+            row = scanner.nextInt() - 1;
+            System.out.print("Choose column: ");
+            col = scanner.nextInt() - 1;
+
+            if (board.isFieldEmpty(row, col)) {
+                board.setSign(activePlayer.sign(), row, col);
                 counter++;
-                gameOver = checkTheDraw(counter, gameOver);
+                if (checkTheWin(activePlayer, row, col)) {
+                    break;
+                } else if (counter == 9) {
+                    System.out.println("It's a draw!");
+                    break;
+                }
                 if (xPlayer.equals(activePlayer)) {
                     activePlayer = oPlayer;
-                } else if (oPlayer.equals(activePlayer)) {
+                } else {
                     activePlayer = xPlayer;
                 }
+            } else {
+                System.out.println("The field is not empty! Try again.");
             }
         }
     }
 
-    public boolean checkTheDraw(int counter, boolean gameOver) {
-        if (counter == 9 && !gameOver) {
-            System.out.println("There is a draw!");
-            board.boardDraw();
-            gameOver = true;
-        }
-        return gameOver;
-    }
-
-    public boolean checkTheWin(Player activePlayer, int row, int col, Board board) {
+    public boolean checkTheWin(Player activePlayer, int row, int col) {
         char sign = activePlayer.sign();
-        int signCounter;
+        return rowWinCheck(activePlayer, row, sign)
+                || colWinCheck(activePlayer, col, sign)
+                || leftCrossWinCheck(activePlayer, sign)
+                || rightCrossWinCheck(activePlayer, sign);
+    }
 
-        signCounter = 0;
-        for (int i = 0; i < board.board.length; i++) {
-            if (board.board[row][i] == sign) {
+    private boolean rowWinCheck(Player activePlayer, int row, char sign) {
+        int signCounter = 0;
+        for (int i = 0; i < board.getSize(); i++) {
+            if (board.getSign(row, i) == activePlayer.sign()) {
                 signCounter++;
             }
-            if (signCounter == 3) {
-                System.out.println("Player " + sign + " wins!");
-                board.boardDraw();
-                return true;
-            }
+            if (whoWins(signCounter, sign)) return true;
         }
-
-        signCounter = 0;
-        for (int i = 0; i < board.board.length; i++) {
-            if (board.board[i][col] == sign) {
-                signCounter++;
-            }
-            if (signCounter == 3) {
-                System.out.println("Player " + sign + " wins!");
-                board.boardDraw();
-                return true;
-            }
-        }
-
-        signCounter = 0;
-        for (int i = 0; i < board.board.length; i++) {
-            if (board.board[i][i] == sign) {
-                signCounter++;
-            }
-            if (signCounter == 3) {
-                System.out.println("Player " + sign + " wins!");
-                board.boardDraw();
-                return true;
-            }
-        }
-
-        signCounter = 0;
-        int colMax = 2;
-        for (int i = 0; i < board.board.length; i++) {
-            if (board.board[i][colMax] == sign) {
-                signCounter++;
-            }
-            if (signCounter == 3) {
-                System.out.println("Player " + sign + " wins!");
-                board.boardDraw();
-                return true;
-            }
-            colMax--;
-        }
-
         return false;
     }
 
-    private boolean checkFieldIsEmpty(int row, int col, Board board) {
-        boolean emptyFill =  board.board[row][col] == ' ';
-        if (!emptyFill) {
-            System.out.println("This field is not empty! Try again.");
+    private boolean colWinCheck(Player activePlayer, int col, char sign) {
+        int signCounter = 0;
+        for (int i = 0; i < board.getSize(); i++) {
+            if (board.getSign(i, col) == activePlayer.sign()) {
+                signCounter++;
+            }
+            if (whoWins(signCounter, sign)) return true;
         }
-        return emptyFill;
+        return false;
     }
 
-    public void placeTheSign(Player activePlayer, int row, int col, Board board) {
-        char sign = ' ';
-        if (xPlayer.equals(activePlayer)) {
-            sign = xPlayer.sign();
-        } else if (oPlayer.equals(activePlayer)) {
-            sign = oPlayer.sign();
+    private boolean leftCrossWinCheck(Player activePlayer, char sign) {
+        int signCounter = 0;
+        for (int i = 0; i < board.getSize(); i++) {
+            if (board.getSign(i, i) == activePlayer.sign()) {
+                signCounter++;
+            }
+            if (whoWins(signCounter, sign)) return true;
         }
-        board.board[row][col] = sign;
+        return false;
+    }
+
+    private boolean rightCrossWinCheck(Player activePlayer, char sign) {
+        int signCounter = 0;
+        int colMax = 2;
+        for (int i = 0; i < board.getSize(); i++) {
+            if (board.getSign(i, colMax) == activePlayer.sign()) {
+                signCounter++;
+            }
+            if (whoWins(signCounter, sign)) return true;
+            colMax--;
+        }
+        return false;
+    }
+
+    private static boolean whoWins(int signCounter, char sign) {
+        if (signCounter == 3) {
+            System.out.println("Player " + sign + " wins!");
+            return true;
+        }
+        return false;
     }
 }
