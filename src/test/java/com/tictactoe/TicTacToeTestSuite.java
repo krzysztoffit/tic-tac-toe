@@ -8,19 +8,26 @@ public class TicTacToeTestSuite {
 
     TicTacToeTheGame ticTacToe = new TicTacToeTheGame();
 
+    public Board boardMaker(Player activePlayer) {
+        Board board = new Board();
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                board.setSign(activePlayer.sign(), row, col);
+            }
+        }
+        return board;
+    }
+
+
     @Test
     void rowOWinTest() {
         // given
         Player activePlayer = new Player('O');
         int row = 0;
-        int col = 0;
-        Board board = new Board();
-        board.board[row][col] = activePlayer.sign();
-        board.board[0][1] = activePlayer.sign();
-        board.board[0][2] = activePlayer.sign();
+        Board board = boardMaker(activePlayer);
 
         // when
-        boolean result = ticTacToe.checkTheWin(activePlayer, row, col, board);
+        boolean result = ticTacToe.rowWinCheck(board, activePlayer, row);
 
         // then
         assertTrue(result);
@@ -30,33 +37,39 @@ public class TicTacToeTestSuite {
     void colOWinTest() {
         // given
         Player activePlayer = new Player('O');
-        int row = 0;
         int col = 0;
-        Board board = new Board();
-        board.board[row][col] = activePlayer.sign();
-        board.board[1][0] = activePlayer.sign();
-        board.board[2][0] = activePlayer.sign();
+        Board board = boardMaker(activePlayer);
 
         // when
-        boolean result = ticTacToe.checkTheWin(activePlayer, row, col, board);
+        boolean result = ticTacToe.colWinCheck(board, activePlayer, col);
 
         // then
         assertTrue(result);
     }
 
     @Test
-    void crossOWinTest() {
+    void leftCrossOWinTest() {
         // given
         Player activePlayer = new Player('O');
         int row = 0;
-        int col = 0;
-        Board board = new Board();
-        board.board[row][col] = activePlayer.sign();
-        board.board[1][1] = activePlayer.sign();
-        board.board[2][2] = activePlayer.sign();
+        Board board = boardMaker(activePlayer);
 
         // when
-        boolean result = ticTacToe.checkTheWin(activePlayer, row, col, board);
+        boolean result = ticTacToe.leftCrossWinCheck(board, activePlayer);
+
+        // then
+        assertTrue(result);
+    }
+
+@Test
+    void rightCrossOWinTest() {
+        // given
+        Player activePlayer = new Player('O');
+        int row = 0;
+        Board board = boardMaker(activePlayer);
+
+        // when
+        boolean result = ticTacToe.rightCrossWinCheck(board, activePlayer);
 
         // then
         assertTrue(result);
@@ -67,62 +80,65 @@ public class TicTacToeTestSuite {
         // given
         Player activePlayer = new Player('X');
         int row = 0;
-        int col = 0;
-        Board board = new Board();
-        board.board[row][col] = activePlayer.sign();
-        board.board[0][1] = activePlayer.sign();
-        board.board[0][2] = activePlayer.sign();
+        Board board = boardMaker(activePlayer);
 
         // when
-        boolean result = ticTacToe.checkTheWin(activePlayer, row, col, board);
+        boolean result = ticTacToe.rowWinCheck(board, activePlayer, row);
 
         // then
         assertTrue(result);
     }
 
     @Test
-    void colXWinTets() {
+    void colXWinTest() {
         // given
         Player activePlayer = new Player('X');
-        int row = 0;
         int col = 0;
-        Board board = new Board();
-        board.board[row][col] = activePlayer.sign();
-        board.board[1][0] = activePlayer.sign();
-        board.board[2][0] = activePlayer.sign();
+        Board board = boardMaker(activePlayer);
 
         // when
-        boolean result = ticTacToe.checkTheWin(activePlayer, row, col, board);
+        boolean result = ticTacToe.colWinCheck(board, activePlayer, col);
 
         // then
         assertTrue(result);
     }
 
     @Test
-    void crossXWinTest() {
+    void leftCrossXWinTest() {
         // given
         Player activePlayer = new Player('X');
         int row = 0;
-        int col = 0;
-        Board board = new Board();
-        board.board[row][col] = activePlayer.sign();
-        board.board[1][1] = activePlayer.sign();
-        board.board[2][2] = activePlayer.sign();
+        Board board = boardMaker(activePlayer);
 
         // when
-        boolean result = ticTacToe.checkTheWin(activePlayer, row, col, board);
+        boolean result = ticTacToe.leftCrossWinCheck(board, activePlayer);
 
         // then
         assertTrue(result);
     }
+
+    @Test
+    void rightCrossXWinTest() {
+        // given
+        Player activePlayer = new Player('X');
+        int row = 0;
+        Board board = boardMaker(activePlayer);
+
+        // when
+        boolean result = ticTacToe.rightCrossWinCheck(board, activePlayer);
+
+        // then
+        assertTrue(result);
+    }
+
 
     @Test
     void drawTest() {
         // given
-        boolean gameOver = false;
+        int counter = 9;
 
         // when
-        boolean result = ticTacToe.checkTheDraw(9, gameOver);
+        boolean result = ticTacToe.checkTheDraw(counter);
 
         // then
         assertTrue(result);

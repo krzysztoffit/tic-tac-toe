@@ -8,6 +8,7 @@ public class TicTacToeTheGame {
     private final Board board = new Board();
     private final Player xPlayer = new Player('X');
     private final Player oPlayer = new Player('O');
+    private boolean waBoolean;
 
     public void playTheGame() {
         Player activePlayer = xPlayer;
@@ -28,8 +29,7 @@ public class TicTacToeTheGame {
                 counter++;
                 if (checkTheWin(activePlayer, row, col)) {
                     break;
-                } else if (counter == 9) {
-                    System.out.println("It's a draw!");
+                } else if (checkTheDraw(counter)) {
                     break;
                 }
                 if (xPlayer.equals(activePlayer)) {
@@ -45,53 +45,53 @@ public class TicTacToeTheGame {
 
     public boolean checkTheWin(Player activePlayer, int row, int col) {
         char sign = activePlayer.sign();
-        return rowWinCheck(activePlayer, row, sign)
-                || colWinCheck(activePlayer, col, sign)
-                || leftCrossWinCheck(activePlayer, sign)
-                || rightCrossWinCheck(activePlayer, sign);
+        return rowWinCheck(board, activePlayer, row)
+                || colWinCheck(board, activePlayer, col)
+                || leftCrossWinCheck(board, activePlayer)
+                || rightCrossWinCheck(board, activePlayer);
     }
 
-    private boolean rowWinCheck(Player activePlayer, int row, char sign) {
+    public boolean rowWinCheck(Board board, Player activePlayer, int row) {
         int signCounter = 0;
         for (int i = 0; i < board.getSize(); i++) {
             if (board.getSign(row, i) == activePlayer.sign()) {
                 signCounter++;
             }
-            if (whoWins(signCounter, sign)) return true;
+            if (whoWins(signCounter, activePlayer.sign())) return true;
         }
         return false;
     }
 
-    private boolean colWinCheck(Player activePlayer, int col, char sign) {
+    public boolean colWinCheck(Board board, Player activePlayer, int col) {
         int signCounter = 0;
         for (int i = 0; i < board.getSize(); i++) {
             if (board.getSign(i, col) == activePlayer.sign()) {
                 signCounter++;
             }
-            if (whoWins(signCounter, sign)) return true;
+            if (whoWins(signCounter, activePlayer.sign())) return true;
         }
         return false;
     }
 
-    private boolean leftCrossWinCheck(Player activePlayer, char sign) {
+    public boolean leftCrossWinCheck(Board board, Player activePlayer) {
         int signCounter = 0;
         for (int i = 0; i < board.getSize(); i++) {
             if (board.getSign(i, i) == activePlayer.sign()) {
                 signCounter++;
             }
-            if (whoWins(signCounter, sign)) return true;
+            if (whoWins(signCounter, activePlayer.sign())) return true;
         }
         return false;
     }
 
-    private boolean rightCrossWinCheck(Player activePlayer, char sign) {
+    public boolean rightCrossWinCheck(Board board, Player activePlayer) {
         int signCounter = 0;
         int colMax = 2;
         for (int i = 0; i < board.getSize(); i++) {
             if (board.getSign(i, colMax) == activePlayer.sign()) {
                 signCounter++;
             }
-            if (whoWins(signCounter, sign)) return true;
+            if (whoWins(signCounter, activePlayer.sign())) return true;
             colMax--;
         }
         return false;
@@ -100,6 +100,14 @@ public class TicTacToeTheGame {
     private static boolean whoWins(int signCounter, char sign) {
         if (signCounter == 3) {
             System.out.println("Player " + sign + " wins!");
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkTheDraw(int counter) {
+        if (counter == 9) {
+            System.out.println("It's a draw!");
             return true;
         }
         return false;
