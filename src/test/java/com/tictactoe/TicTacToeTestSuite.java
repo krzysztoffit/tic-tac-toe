@@ -1,30 +1,28 @@
 package com.tictactoe;
 
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TicTacToeTestSuite {
 
     TicTacToeTheGame ticTacToe = new TicTacToeTheGame();
 
-    public Board boardMaker(Player activePlayer) {
-        Board board = new Board();
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 3; col++) {
-                board.setSign(activePlayer.sign(), row, col);
-            }
-        }
-        return board;
-    }
-
-
     @Test
     void rowOWinTest() {
         // given
         Player activePlayer = new Player('O');
         int row = 0;
-        Board board = boardMaker(activePlayer);
+        Board board = new Board();
+        board.setSign('O', 0, 0);
+        board.setSign('O', 0, 1);
+        board.setSign('O', 0, 2);
+        board.setSign('X', 1, 0);
+        board.setSign('X', 1, 1);
+        board.setSign('O', 1, 2);
+        board.setSign('O', 2, 0);
+        board.setSign('X', 2, 1);
+        board.setSign('X', 2, 2);
+        board.printBoard();
 
         // when
         boolean result = ticTacToe.rowWinCheck(board, activePlayer, row);
@@ -38,7 +36,17 @@ public class TicTacToeTestSuite {
         // given
         Player activePlayer = new Player('O');
         int col = 0;
-        Board board = boardMaker(activePlayer);
+        Board board = new Board();
+        board.setSign('O', 0, 0);
+        board.setSign('O', 0, 1);
+        board.setSign('X', 0, 2);
+        board.setSign('O', 1, 0);
+        board.setSign('O', 1, 1);
+        board.setSign('X', 1, 2);
+        board.setSign('O', 2, 0);
+        board.setSign('X', 2, 1);
+        board.setSign('O', 2, 2);
+        board.printBoard();
 
         // when
         boolean result = ticTacToe.colWinCheck(board, activePlayer, col);
@@ -52,7 +60,17 @@ public class TicTacToeTestSuite {
         // given
         Player activePlayer = new Player('O');
         int row = 0;
-        Board board = boardMaker(activePlayer);
+        Board board = new Board();
+        board.setSign('O', 0, 0);
+        board.setSign('X', 0, 1);
+        board.setSign('O', 0, 2);
+        board.setSign('X', 1, 0);
+        board.setSign('O', 1, 1);
+        board.setSign('O', 1, 2);
+        board.setSign('X', 2, 0);
+        board.setSign('X', 2, 1);
+        board.setSign('O', 2, 2);
+        board.printBoard();
 
         // when
         boolean result = ticTacToe.leftCrossWinCheck(board, activePlayer);
@@ -66,7 +84,17 @@ public class TicTacToeTestSuite {
         // given
         Player activePlayer = new Player('O');
         int row = 0;
-        Board board = boardMaker(activePlayer);
+        Board board = new Board();
+        board.setSign('X', 0, 0);
+        board.setSign('X', 0, 1);
+        board.setSign('O', 0, 2);
+        board.setSign('X', 1, 0);
+        board.setSign('O', 1, 1);
+        board.setSign('O', 1, 2);
+        board.setSign('O', 2, 0);
+        board.setSign('O', 2, 1);
+        board.setSign('X', 2, 2);
+        board.printBoard();
 
         // when
         boolean result = ticTacToe.rightCrossWinCheck(board, activePlayer);
@@ -80,7 +108,17 @@ public class TicTacToeTestSuite {
         // given
         Player activePlayer = new Player('X');
         int row = 0;
-        Board board = boardMaker(activePlayer);
+        Board board = new Board();
+        board.setSign('X', 0, 0);
+        board.setSign('X', 0, 1);
+        board.setSign('X', 0, 2);
+        board.setSign('X', 1, 0);
+        board.setSign('O', 1, 1);
+        board.setSign('O', 1, 2);
+        board.setSign('O', 2, 0);
+        board.setSign('X', 2, 1);
+        board.setSign('O', 2, 2);
+        board.printBoard();
 
         // when
         boolean result = ticTacToe.rowWinCheck(board, activePlayer, row);
@@ -94,7 +132,17 @@ public class TicTacToeTestSuite {
         // given
         Player activePlayer = new Player('X');
         int col = 0;
-        Board board = boardMaker(activePlayer);
+        Board board = new Board();
+        board.setSign('X', 0, 0);
+        board.setSign('X', 0, 1);
+        board.setSign('O', 0, 2);
+        board.setSign('X', 1, 0);
+        board.setSign('O', 1, 1);
+        board.setSign('X', 1, 2);
+        board.setSign('X', 2, 0);
+        board.setSign('O', 2, 1);
+        board.setSign('O', 2, 2);
+        board.printBoard();
 
         // when
         boolean result = ticTacToe.colWinCheck(board, activePlayer, col);
@@ -108,7 +156,17 @@ public class TicTacToeTestSuite {
         // given
         Player activePlayer = new Player('X');
         int row = 0;
-        Board board = boardMaker(activePlayer);
+        Board board = new Board();
+        board.setSign('X', 0, 0);
+        board.setSign('X', 0, 1);
+        board.setSign('O', 0, 2);
+        board.setSign('O', 1, 0);
+        board.setSign('X', 1, 1);
+        board.setSign('O', 1, 2);
+        board.setSign('O', 2, 0);
+        board.setSign('0', 2, 1);
+        board.setSign('X', 2, 2);
+        board.printBoard();
 
         // when
         boolean result = ticTacToe.leftCrossWinCheck(board, activePlayer);
@@ -122,7 +180,17 @@ public class TicTacToeTestSuite {
         // given
         Player activePlayer = new Player('X');
         int row = 0;
-        Board board = boardMaker(activePlayer);
+        Board board = new Board();
+        board.setSign('O', 0, 0);
+        board.setSign('X', 0, 1);
+        board.setSign('X', 0, 2);
+        board.setSign('X', 1, 0);
+        board.setSign('X', 1, 1);
+        board.setSign('O', 1, 2);
+        board.setSign('X', 2, 0);
+        board.setSign('O', 2, 1);
+        board.setSign('O', 2, 2);
+        board.printBoard();
 
         // when
         boolean result = ticTacToe.rightCrossWinCheck(board, activePlayer);
@@ -146,6 +214,11 @@ public class TicTacToeTestSuite {
 
     @Test
     void exceptionThrowTest() {
+        // given
+        Board board = new Board();
+        board.setSign('X', 0, 0);
 
+        // when & then
+        assertThrows(Exception.class, () -> board.isFieldEmpty(0, 0));
     }
 }

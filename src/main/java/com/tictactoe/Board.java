@@ -29,7 +29,10 @@ public class Board {
             board[row][col] = sign;
     }
 
-    public boolean isFieldEmpty(int row, int col) {
-        return board[row][col] == ' ';
+    public boolean isFieldEmpty(int row, int col) throws Exception {
+        if (board[row][col] != ' ') {
+            throw new Exception("The field is not empty! Try again.");
+        }
+        return true;
     }
 }

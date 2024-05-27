@@ -8,7 +8,6 @@ public class TicTacToeTheGame {
     private final Board board = new Board();
     private final Player xPlayer = new Player('X');
     private final Player oPlayer = new Player('O');
-    private boolean waBoolean;
 
     public void playTheGame() {
         Player activePlayer = xPlayer;
@@ -24,27 +23,28 @@ public class TicTacToeTheGame {
             System.out.print("Choose column: ");
             col = scanner.nextInt() - 1;
 
-            if (board.isFieldEmpty(row, col)) {
-                board.setSign(activePlayer.sign(), row, col);
-                counter++;
-                if (checkTheWin(activePlayer, row, col)) {
-                    break;
-                } else if (checkTheDraw(counter)) {
-                    break;
+            try {
+                if (board.isFieldEmpty(row, col)) {
+                    board.setSign(activePlayer.sign(), row, col);
+                    counter++;
+                    if (checkTheWin(activePlayer, row, col)) {
+                        break;
+                    } else if (checkTheDraw(counter)) {
+                        break;
+                    }
+                    if (xPlayer.equals(activePlayer)) {
+                        activePlayer = oPlayer;
+                    } else {
+                        activePlayer = xPlayer;
+                    }
                 }
-                if (xPlayer.equals(activePlayer)) {
-                    activePlayer = oPlayer;
-                } else {
-                    activePlayer = xPlayer;
-                }
-            } else {
-                System.out.println("The field is not empty! Try again.");
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         }
     }
 
     public boolean checkTheWin(Player activePlayer, int row, int col) {
-        char sign = activePlayer.sign();
         return rowWinCheck(board, activePlayer, row)
                 || colWinCheck(board, activePlayer, col)
                 || leftCrossWinCheck(board, activePlayer)
