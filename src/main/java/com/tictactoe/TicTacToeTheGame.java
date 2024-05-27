@@ -1,10 +1,12 @@
 package com.tictactoe;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class TicTacToeTheGame {
 
     private static final Scanner scanner = new Scanner(System.in);
+    Random random = new Random();
     private final Board board = new Board();
     private final Player xPlayer = new Player('X');
     private final Player oPlayer = new Player('O');
@@ -16,31 +18,48 @@ public class TicTacToeTheGame {
         int row;
 
         while (true) {
-            board.printBoard();
-            System.out.println("Player " + activePlayer.sign() + " it's your move.");
-            System.out.print("Choose row: ");
-            row = scanner.nextInt() - 1;
-            System.out.print("Choose column: ");
-            col = scanner.nextInt() - 1;
-
-            try {
-                if (board.isFieldEmpty(row, col)) {
-                    board.setSign(activePlayer.sign(), row, col);
-                    counter++;
-                    if (checkTheWin(activePlayer, row, col)) {
-                        break;
-                    } else if (checkTheDraw(counter)) {
-                        break;
-                    }
-                    if (xPlayer.equals(activePlayer)) {
-                        activePlayer = oPlayer;
-                    } else {
+            if (oPlayer.equals(activePlayer)) {
+                row = random.nextInt(3);
+                col = random.nextInt(3);
+                System.out.println("Computer chosen row " + (row + 1) + " and column " + (col + 1));
+                try {
+                    if (board.isFieldEmpty(row, col)) {
+                        board.setSign(activePlayer.sign(), row, col);
+                        counter++;
+                        if (checkTheWin(activePlayer, row, col)) {
+                            break;
+                        } else if (checkTheDraw(counter)) {
+                            break;
+                        }
                         activePlayer = xPlayer;
                     }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
                 }
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } else {
+                board.printBoard();
+                System.out.println("Player " + activePlayer.sign() + " it's your move.");
+                System.out.print("Choose row: ");
+                row = scanner.nextInt() - 1;
+                System.out.print("Choose column: ");
+                col = scanner.nextInt() - 1;
+                try {
+                    if (board.isFieldEmpty(row, col)) {
+                        board.setSign(activePlayer.sign(), row, col);
+                        counter++;
+                        if (checkTheWin(activePlayer, row, col)) {
+                            break;
+                        } else if (checkTheDraw(counter)) {
+                            break;
+                        }
+                        activePlayer = oPlayer;
+
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
             }
+
         }
     }
 
