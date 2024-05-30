@@ -27,7 +27,7 @@ public class TicTacToeTestSuite {
         WinnerChecker winnerChecker = new WinnerChecker(board);
 
         // when
-        boolean result = winnerChecker.rowWinCheck(board, activePlayer, row);
+        boolean result = winnerChecker.rowWinCheck(activePlayer, row);
 
         // then
         assertTrue(result);
@@ -52,7 +52,7 @@ public class TicTacToeTestSuite {
         WinnerChecker winnerChecker = new WinnerChecker(board);
 
         // when
-        boolean result = winnerChecker.colWinCheck(board, activePlayer, col);
+        boolean result = winnerChecker.colWinCheck(activePlayer, col);
 
         // then
         assertTrue(result);
@@ -77,7 +77,7 @@ public class TicTacToeTestSuite {
         WinnerChecker winnerChecker = new WinnerChecker(board);
 
         // when
-        boolean result = winnerChecker.leftCrossWinCheck(board, activePlayer);
+        boolean result = winnerChecker.leftCrossWinCheck(activePlayer);
 
         // then
         assertTrue(result);
@@ -102,7 +102,7 @@ public class TicTacToeTestSuite {
         WinnerChecker winnerChecker = new WinnerChecker(board);
 
         // when
-        boolean result = winnerChecker.rightCrossWinCheck(board, activePlayer);
+        boolean result = winnerChecker.rightCrossWinCheck(activePlayer);
 
         // then
         assertTrue(result);
@@ -127,7 +127,7 @@ public class TicTacToeTestSuite {
         WinnerChecker winnerChecker = new WinnerChecker(board);
 
         // when
-        boolean result = winnerChecker.rowWinCheck(board, activePlayer, row);
+        boolean result = winnerChecker.rowWinCheck(activePlayer, row);
 
         // then
         assertTrue(result);
@@ -152,7 +152,7 @@ public class TicTacToeTestSuite {
         WinnerChecker winnerChecker = new WinnerChecker(board);
 
         // when
-        boolean result = winnerChecker.colWinCheck(board, activePlayer, col);
+        boolean result = winnerChecker.colWinCheck(activePlayer, col);
 
         // then
         assertTrue(result);
@@ -177,7 +177,7 @@ public class TicTacToeTestSuite {
         WinnerChecker winnerChecker = new WinnerChecker(board);
 
         // when
-        boolean result = winnerChecker.leftCrossWinCheck(board, activePlayer);
+        boolean result = winnerChecker.leftCrossWinCheck(activePlayer);
 
         // then
         assertTrue(result);
@@ -202,7 +202,7 @@ public class TicTacToeTestSuite {
         WinnerChecker winnerChecker = new WinnerChecker(board);
 
         // when
-        boolean result = winnerChecker.rightCrossWinCheck(board, activePlayer);
+        boolean result = winnerChecker.rightCrossWinCheck(activePlayer);
 
         // then
         assertTrue(result);

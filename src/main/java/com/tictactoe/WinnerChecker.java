@@ -9,13 +9,13 @@ public class WinnerChecker {
     }
 
     public boolean checkTheWin(Player activePlayer, int row, int col) {
-        return rowWinCheck(board, activePlayer, row)
-                || colWinCheck(board, activePlayer, col)
-                || leftCrossWinCheck(board, activePlayer)
-                || rightCrossWinCheck(board, activePlayer);
+        return rowWinCheck(activePlayer, row)
+                || colWinCheck(activePlayer, col)
+                || leftCrossWinCheck(activePlayer)
+                || rightCrossWinCheck(activePlayer);
     }
 
-    public boolean rowWinCheck(Board board, Player activePlayer, int row) {
+    public boolean rowWinCheck(Player activePlayer, int row) {
         int signCounter = 0;
         for (int i = 0; i < board.getSize(); i++) {
             if (board.getSign(row, i) == activePlayer.sign()) {
@@ -26,7 +26,7 @@ public class WinnerChecker {
         return false;
     }
 
-    public boolean colWinCheck(Board board, Player activePlayer, int col) {
+    public boolean colWinCheck(Player activePlayer, int col) {
         int signCounter = 0;
         for (int i = 0; i < board.getSize(); i++) {
             if (board.getSign(i, col) == activePlayer.sign()) {
@@ -37,7 +37,7 @@ public class WinnerChecker {
         return false;
     }
 
-    public boolean leftCrossWinCheck(Board board, Player activePlayer) {
+    public boolean leftCrossWinCheck(Player activePlayer) {
         int signCounter = 0;
         for (int i = 0; i < board.getSize(); i++) {
             if (board.getSign(i, i) == activePlayer.sign()) {
@@ -48,7 +48,7 @@ public class WinnerChecker {
         return false;
     }
 
-    public boolean rightCrossWinCheck(Board board, Player activePlayer) {
+    public boolean rightCrossWinCheck(Player activePlayer) {
         int signCounter = 0;
         int colMax = board.getSize() - 1;
         for (int i = 0; i < board.getSize(); i++) {
