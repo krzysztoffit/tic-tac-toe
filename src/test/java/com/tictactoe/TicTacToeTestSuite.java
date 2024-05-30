@@ -1,6 +1,7 @@
 package com.tictactoe;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TicTacToeTestSuite {
@@ -23,9 +24,10 @@ public class TicTacToeTestSuite {
         board.setSign('X', 2, 1);
         board.setSign('X', 2, 2);
         board.printBoard();
+        WinnerChecker winnerChecker = new WinnerChecker(board);
 
         // when
-        boolean result = ticTacToe.rowWinCheck(board, activePlayer, row);
+        boolean result = winnerChecker.rowWinCheck(board, activePlayer, row);
 
         // then
         assertTrue(result);
@@ -47,9 +49,10 @@ public class TicTacToeTestSuite {
         board.setSign('X', 2, 1);
         board.setSign('O', 2, 2);
         board.printBoard();
+        WinnerChecker winnerChecker = new WinnerChecker(board);
 
         // when
-        boolean result = ticTacToe.colWinCheck(board, activePlayer, col);
+        boolean result = winnerChecker.colWinCheck(board, activePlayer, col);
 
         // then
         assertTrue(result);
@@ -71,15 +74,16 @@ public class TicTacToeTestSuite {
         board.setSign('X', 2, 1);
         board.setSign('O', 2, 2);
         board.printBoard();
+        WinnerChecker winnerChecker = new WinnerChecker(board);
 
         // when
-        boolean result = ticTacToe.leftCrossWinCheck(board, activePlayer);
+        boolean result = winnerChecker.leftCrossWinCheck(board, activePlayer);
 
         // then
         assertTrue(result);
     }
 
-@Test
+    @Test
     void rightCrossOWinTest() {
         // given
         Player activePlayer = new Player('O');
@@ -95,9 +99,10 @@ public class TicTacToeTestSuite {
         board.setSign('O', 2, 1);
         board.setSign('X', 2, 2);
         board.printBoard();
+        WinnerChecker winnerChecker = new WinnerChecker(board);
 
         // when
-        boolean result = ticTacToe.rightCrossWinCheck(board, activePlayer);
+        boolean result = winnerChecker.rightCrossWinCheck(board, activePlayer);
 
         // then
         assertTrue(result);
@@ -119,9 +124,10 @@ public class TicTacToeTestSuite {
         board.setSign('X', 2, 1);
         board.setSign('O', 2, 2);
         board.printBoard();
+        WinnerChecker winnerChecker = new WinnerChecker(board);
 
         // when
-        boolean result = ticTacToe.rowWinCheck(board, activePlayer, row);
+        boolean result = winnerChecker.rowWinCheck(board, activePlayer, row);
 
         // then
         assertTrue(result);
@@ -143,9 +149,10 @@ public class TicTacToeTestSuite {
         board.setSign('O', 2, 1);
         board.setSign('O', 2, 2);
         board.printBoard();
+        WinnerChecker winnerChecker = new WinnerChecker(board);
 
         // when
-        boolean result = ticTacToe.colWinCheck(board, activePlayer, col);
+        boolean result = winnerChecker.colWinCheck(board, activePlayer, col);
 
         // then
         assertTrue(result);
@@ -167,9 +174,10 @@ public class TicTacToeTestSuite {
         board.setSign('0', 2, 1);
         board.setSign('X', 2, 2);
         board.printBoard();
+        WinnerChecker winnerChecker = new WinnerChecker(board);
 
         // when
-        boolean result = ticTacToe.leftCrossWinCheck(board, activePlayer);
+        boolean result = winnerChecker.leftCrossWinCheck(board, activePlayer);
 
         // then
         assertTrue(result);
@@ -191,9 +199,10 @@ public class TicTacToeTestSuite {
         board.setSign('O', 2, 1);
         board.setSign('O', 2, 2);
         board.printBoard();
+        WinnerChecker winnerChecker = new WinnerChecker(board);
 
         // when
-        boolean result = ticTacToe.rightCrossWinCheck(board, activePlayer);
+        boolean result = winnerChecker.rightCrossWinCheck(board, activePlayer);
 
         // then
         assertTrue(result);
@@ -203,10 +212,11 @@ public class TicTacToeTestSuite {
     @Test
     void drawTest() {
         // given
+        WinnerChecker winnerChecker = new WinnerChecker(new Board());
         int counter = 9;
 
         // when
-        boolean result = ticTacToe.checkTheDraw(counter);
+        boolean result = winnerChecker.checkTheDraw(counter);
 
         // then
         assertTrue(result);
