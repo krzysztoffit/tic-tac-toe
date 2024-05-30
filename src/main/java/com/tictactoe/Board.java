@@ -18,7 +18,7 @@ public class Board {
     }
 
     public int getSize() {
-        return 3;
+        return board.length;
     }
 
     public char getSign(int row, int col) {
@@ -34,5 +34,9 @@ public class Board {
             throw new Exception("The field is not empty! Try again.");
         }
         return true;
+    }
+
+    public int winCondition() {
+        return 3;
     }
 }

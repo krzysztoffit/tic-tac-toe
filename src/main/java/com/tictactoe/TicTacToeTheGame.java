@@ -6,8 +6,8 @@ import java.util.Scanner;
 public class TicTacToeTheGame {
 
     private static final Scanner scanner = new Scanner(System.in);
-    Random random = new Random();
-    private final Board board = new Board();
+    private final Random random = new Random();
+    private Board board;
     private final Player xPlayer = new Player('X');
     private final Player oPlayer = new Player('O');
 
@@ -17,10 +17,12 @@ public class TicTacToeTheGame {
         int col;
         int row;
 
+        boardSizeChoose();
+
         while (true) {
             if (oPlayer.equals(activePlayer)) {
-                row = random.nextInt(3);
-                col = random.nextInt(3);
+                row = random.nextInt(board.getSize());
+                col = random.nextInt(board.getSize());
                 System.out.println("Computer chosen row " + (row + 1) + " and column " + (col + 1));
                 try {
                     if (board.isFieldEmpty(row, col)) {
@@ -53,13 +55,29 @@ public class TicTacToeTheGame {
                             break;
                         }
                         activePlayer = oPlayer;
-
                     }
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
             }
 
+        }
+    }
+
+    private boolean boardSizeChoose() {
+        int boardSize = 0;
+        while (true) {
+            System.out.print("Choose size of the board (3, 10): ");
+            boardSize = scanner.nextInt();
+            if (boardSize == 3) {
+                board = new Board();
+                return false;
+            } else if (boardSize == 10) {
+                board = new Board10();
+                return false;
+            } else {
+                System.out.println("There is no such option. Try again.");
+            }
         }
     }
 
@@ -105,7 +123,7 @@ public class TicTacToeTheGame {
 
     public boolean rightCrossWinCheck(Board board, Player activePlayer) {
         int signCounter = 0;
-        int colMax = 2;
+        int colMax = board.getSize() - 1;
         for (int i = 0; i < board.getSize(); i++) {
             if (board.getSign(i, colMax) == activePlayer.sign()) {
                 signCounter++;
@@ -116,8 +134,8 @@ public class TicTacToeTheGame {
         return false;
     }
 
-    private static boolean whoWins(int signCounter, char sign) {
-        if (signCounter == 3) {
+    private boolean whoWins(int signCounter, char sign) {
+        if (signCounter == board.winCondition()) {
             System.out.println("Player " + sign + " wins!");
             return true;
         }
@@ -125,7 +143,7 @@ public class TicTacToeTheGame {
     }
 
     public boolean checkTheDraw(int counter) {
-        if (counter == 9) {
+        if (counter == (board.getSize() * board.getSize())) {
             System.out.println("It's a draw!");
             return true;
         }
